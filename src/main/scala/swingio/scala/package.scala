@@ -10,5 +10,7 @@ package object scala {
   type MonadicActionListener = ActionEvent => IO[Unit]
 
   implicit def unitToActionListener[T](f: =>Unit): T => Unit = _ => f
+
+  implicit def unitToMonadicActionListener(f: =>IO[Unit]): MonadicActionListener = _ => f.unsafeRunSync()
   
 }
