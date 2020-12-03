@@ -3,7 +3,7 @@ import java.awt.BorderLayout
 import ExampleOfSimpleMVC.Model.{Model, modelUpdated}
 import cats.effect.Async.fromFuture
 import cats.effect.{ContextShift, IO}
-import javax.swing.{JButton, JFrame, JLabel, JPanel, JSlider, WindowConstants}
+import javax.swing.{JButton, JFrame, JLabel, JPanel, JSlider, SwingUtilities, WindowConstants}
 
 
 object ExampleOfUse extends App {
