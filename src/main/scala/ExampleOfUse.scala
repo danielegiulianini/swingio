@@ -21,21 +21,24 @@ object ExampleOfUse extends App {
 
   val panelBuilt = for {
     panel <- new JPanel()
-    _ <- panel.setLayout(new BorderLayout())
     slider <- new JSlider()
-    _ <- panel.add(slider, BorderLayout.CENTER)
     label <- new JLabel("value: ?")
-    _ <- panel.add(label, BorderLayout.NORTH)
     button <- new JButton("Click to display positive value.")
-    //monadic listener:
-    _ <- button.addMonadicActionListener(for {
-      currentValue <- slider.getValue
-      _ <- if (currentValue > 0) label.setText("value: " + currentValue)
-      else IO.unit
-    } yield ())
-    //procedural listener:
-    _ <- button.addActionListener((_)=>System.out.println("button pressed"))
-    _ <- panel.add(button, BorderLayout.SOUTH)
+
+    _ <- SwingUtilities.invokeAndWait(() => for {
+      _      <- panel.setLayout(new BorderLayout())
+      _      <- panel.add(slider, BorderLayout.CENTER)
+      _      <- panel.add(label, BorderLayout.NORTH)
+      //monadic listener:
+      _      <- button.addMonadicActionListener(for {
+        currentValue <- slider.getValue
+        _ <- if (currentValue > 0) label.setText("value: " + currentValue)
+        else IO.unit
+      } yield ())
+      //procedural listener:
+      _      <- button.addActionListener((_) => System.out.println("button pressed"))
+      _      <- panel.add(button, BorderLayout.SOUTH)
+    } yield())
   } yield panel
 
   val program = for {
