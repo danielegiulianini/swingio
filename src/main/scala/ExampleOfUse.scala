@@ -1,6 +1,7 @@
 import javax.swing.{JButton, JFrame, JPanel}
 
 object Prova extends App {
+  
   import swingio.scala._
 
   val program = for {
