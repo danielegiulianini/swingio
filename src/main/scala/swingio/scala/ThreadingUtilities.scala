@@ -15,6 +15,9 @@ object ThreadingUtilities {
 
     def monadicInvokeLater(byNameMonadicRunnable: =>IO[Unit]): Unit =
       SwingUtilities.invokeLater(() => byNameMonadicRunnable.unsafeRunSync())
-     
+
+    def monadicInvokeAndWait(byNameMonadicRunnable: =>IO[Unit]): Unit =
+      SwingUtilities.invokeAndWait(() => byNameMonadicRunnable.unsafeRunSync())
+
   }
 }
