@@ -30,7 +30,7 @@ object ExampleOfSimpleMVC extends App {
     val STARTING_MODEL_STATE = 0
     val FINAL_MODEL_STATE = 100
     case class Model(state: Int)
-    def modelUpdated(model: Model, input: Int): IO[Model] = IO{ println("ciao, sto aggiornando"); Model(model.state+input) }
+    def modelUpdated(model: Model, input: Int): IO[Model] = Model(model.state+input)
   }
 
   object View {
