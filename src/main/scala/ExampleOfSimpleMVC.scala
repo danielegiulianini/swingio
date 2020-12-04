@@ -1,14 +1,12 @@
 import java.awt.BorderLayout
 
-import ExampleOfSimpleMVC.Model.{FINAL_STATE, Model, modelUpdated}
-import ExampleOfSimpleMVC.View.printlns
+import ExampleOfSimpleMVC.Model.{FINAL_MODEL_STATE, Model, modelUpdated}
 import cats.effect.Async.fromFuture
 import cats.effect.{ContextShift, IO}
 import javax.swing.{JButton, JFrame, JLabel, JPanel, JSlider, WindowConstants}
-import swingio.scala.ThreadingUtilities.Monadic.monadicInvokeAndWait
-
 import scala.concurrent.{ExecutionContext, Future, Promise}
 
+import swingio.scala.ThreadingUtilities.Monadic.monadicInvokeAndWait
 
 object ExampleOfSimpleMVC extends App {
   implicit val contextShift: ContextShift[IO] = IO.contextShift(ExecutionContext.global)
@@ -24,12 +22,13 @@ object ExampleOfSimpleMVC extends App {
       input  <- fromFuture(View.read())
       updatedModel <- modelUpdated(model, input)
       _ <- View.write(updatedModel)
-      _ <- if (model.state < FINAL_STATE) loop(updatedModel) else IO{print("gameOver")}
+      _ <- if (model.state < FINAL_MODEL_STATE) loop(updatedModel) else IO{print("gameOver")}
     } yield ()
   }
 
   object Model {
-    val FINAL_STATE = 100
+    val STARTING_MODEL_STATE = 0
+    val FINAL_MODEL_STATE = 100
     case class Model(state: Int)
     def modelUpdated(model: Model, input: Int): IO[Model] = IO{ println("ciao, sto aggiornando"); Model(model.state+input) }
   }
@@ -39,8 +38,6 @@ object ExampleOfSimpleMVC extends App {
     import swingio.scala._
 
     val frame = new JFrame("swing-io example")
-
-    def printlns(s:String): Unit = println(Thread.currentThread()+ ""+s)
 
     def welcome(): IO[Future[Unit]] = for {
       p <- Promise[Unit]()
@@ -97,7 +94,6 @@ object ExampleOfSimpleMVC extends App {
     } yield ()
   }
 
-  Controller setUp Model.Model(2) unsafeRunSync
-  //Controller loop Model.Model("2") unsafeRunSync
+  Controller setUp Model.Model(0) unsafeRunSync
 }
 
