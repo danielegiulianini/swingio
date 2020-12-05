@@ -1,15 +1,15 @@
+package swingio.scala.examples
+
 import java.awt.BorderLayout
 
-import ExampleOfSimpleMVC.Model.{Model, modelUpdated}
-import cats.effect.Async.fromFuture
-import cats.effect.{ContextShift, IO}
-import javax.swing.{JButton, JFrame, JLabel, JPanel, JSlider, SwingUtilities, WindowConstants}
-
+import cats.effect.IO
+import javax.swing._
+import swingio.scala.ThreadingUtilities.Monadic.monadicInvokeAndWait
 
 object ExampleOfUse extends App {
 
-  import swingio.scala._
   import swingio.scala.Listeners._
+  import swingio.scala._
 
   val frameBuilt = for {
     frame <- new JFrame
@@ -20,34 +20,36 @@ object ExampleOfUse extends App {
   } yield frame
 
   val panelBuilt = for {
+    _ <- Thread.sleep(100000)
     panel <- new JPanel()
     slider <- new JSlider()
     label <- new JLabel("value: ?")
     button <- new JButton("Click to display positive value.")
-
-    _ <- SwingUtilities.invokeAndWait(() => for {
-      _      <- panel.setLayout(new BorderLayout())
-      _      <- panel.add(slider, BorderLayout.CENTER)
-      _      <- panel.add(label, BorderLayout.NORTH)
+    _ <- monadicInvokeAndWait(for {
+      _ <- panel.setLayout(new BorderLayout())
+      _ <- panel.add(slider, BorderLayout.CENTER)
+      _ <- panel.add(label, BorderLayout.NORTH)
       //monadic listener:
-      _      <- button.addMonadicActionListener(for {
+      _ <- button.addMonadicActionListener(for {
         currentValue <- slider.getValue
         _ <- if (currentValue > 0) label.setText("value: " + currentValue)
         else IO.unit
       } yield ())
       //procedural listener:
-      _      <- button.addActionListener((_) => System.out.println("button pressed"))
-      _      <- panel.add(button, BorderLayout.SOUTH)
-    } yield())
+      _ <- button.addActionListener(_ => System.out.println("button pressed"))
+      _ <- panel.add(slider, BorderLayout.CENTER)
+      _ <- panel.add(label, BorderLayout.NORTH)
+      _ <- panel.add(button, BorderLayout.SOUTH)
+    } yield ())
   } yield panel
 
   val program = for {
     frame <- frameBuilt
     panel <- panelBuilt
-    _ <- frame.add(panel)
+    _ <- frame.getContentPane.add(panel)
     _ <- frame.setVisible(true)
   } yield ()
-
+  
   //example of execution with unsafeRunAsync (async, callback-based API)
   program unsafeRunAsync {
     case Left(_) => println("an exception was raised during gui-building.")
@@ -69,8 +71,4 @@ object ExampleOfUse extends App {
     _ <- jf.setVisible(true)
   } yield ()*/
 
-  program unsafeRunSync
 }
-
-
-
