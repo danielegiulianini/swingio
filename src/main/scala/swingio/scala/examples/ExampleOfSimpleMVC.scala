@@ -6,6 +6,7 @@ import cats.effect.Async.fromFuture
 import cats.effect.{ContextShift, IO}
 import javax.swing._
 import swingio.scala.ThreadingUtilities.Monadic.monadicInvokeAndWait
+import swingio.scala.examples.ExampleOfSimpleMVC.Model.{FINAL_MODEL_STATE, Model, modelUpdated}
 
 import scala.concurrent.{ExecutionContext, Future, Promise}
 
@@ -23,9 +24,7 @@ object ExampleOfSimpleMVC extends App {
       input <- fromFuture(View.read())
       updatedModel <- modelUpdated(model, input)
       _ <- View.write(updatedModel)
-      _ <- if (model.state < FINAL_MODEL_STATE) loop(updatedModel) else IO {
-        print("gameOver")
-      }
+      _ <- if (model.state < FINAL_MODEL_STATE) loop(updatedModel) else IO { print("gameOver") }
     } yield ()
   }
 

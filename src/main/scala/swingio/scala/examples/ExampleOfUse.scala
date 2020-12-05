@@ -49,7 +49,7 @@ object ExampleOfUse extends App {
     _ <- frame.getContentPane.add(panel)
     _ <- frame.setVisible(true)
   } yield ()
-  
+
   //example of execution with unsafeRunAsync (async, callback-based API)
   program unsafeRunAsync {
     case Left(_) => println("an exception was raised during gui-building.")
