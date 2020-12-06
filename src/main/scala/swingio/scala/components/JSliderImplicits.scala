@@ -7,8 +7,7 @@ import javax.swing.JSlider
 object JSliderImplicits {
 
   /** A class that provides a monadic description of the operations supplied by Swing's [[JSlider]] in the form
-   * of IO monad in a purely functional fashion.
-   */
+   * of IO monad in a purely functional fashion. */
   class JSliderIO(jSlider: JSlider){
 
     /** Returns an [[IO]] containing the description of a [[JSlider#setMinimum]]
