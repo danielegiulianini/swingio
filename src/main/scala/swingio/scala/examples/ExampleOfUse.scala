@@ -18,7 +18,6 @@ object ExampleOfUse extends App {
   } yield frame
 
   val panelBuilt = for {
-    _ <- Thread.sleep(100000)
     panel <- new JPanel()
     slider <- new JSlider()
     label <- new JLabel("value: ?")

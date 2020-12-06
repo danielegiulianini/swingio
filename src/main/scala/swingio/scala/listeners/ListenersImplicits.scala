@@ -1,6 +1,6 @@
 package swingio.scala.listeners
 
-import java.awt.event.{ActionEvent, ActionListener}
+import java.awt.event.{ActionListener}
 
 import cats.effect.IO
 import javax.swing.SwingUtilities
