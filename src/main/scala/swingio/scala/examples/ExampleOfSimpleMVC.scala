@@ -52,7 +52,7 @@ object ExampleOfSimpleMVC extends App {
         _ <- frame.getContentPane.add(panel, BorderLayout.CENTER)
         _ <- frame.setSize(320, 200)
         _ <- frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
-        _ <- button.addMonadicActionListener(_ => for {
+        _ <- button.addMonadicActionListener(for {
           _ <- button.setEnabled(false)
           _ <- frame.getContentPane.removeAll()
           _ <- frame.repaint()
@@ -78,7 +78,7 @@ object ExampleOfSimpleMVC extends App {
       button <- new JButton("Hi, Update model with slider, please:")
       _ <- monadicInvokeAndWait(for {
         _ <- panel.add(input)
-        _ <- button.addMonadicActionListener(_ => for {
+        _ <- button.addMonadicActionListener(for {
           _ <- button.setEnabled(false)
           _ <- p.success(input.getValue)
           _ <- frame.getContentPane.removeAll
