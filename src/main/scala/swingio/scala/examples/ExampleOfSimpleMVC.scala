@@ -5,7 +5,6 @@ import java.awt.BorderLayout
 import cats.effect.Async.fromFuture
 import cats.effect.{ContextShift, IO}
 import javax.swing._
-import swingio.scala.ThreadingUtilities.Monadic.monadicInvokeAndWait
 import swingio.scala.examples.ExampleOfSimpleMVC.Model.{FINAL_MODEL_STATE, Model, modelUpdated}
 
 import scala.concurrent.{ExecutionContext, Future, Promise}
