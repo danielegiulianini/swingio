@@ -19,18 +19,17 @@ object Container {
     def add(componentToBeAdded: Component, constraints: Object): IO[Unit] =
       IO {container.add(componentToBeAdded, constraints)}
 
-
     /** Returns an [[IO]] containing the description of a [[java.awt.Container#remove]]
      * method invocation.*/
     def removed(componentToBeAdded: Component): IO[Unit] =
-      IO { container.remove(componentToBeAdded)  }
+      IO { container.remove(componentToBeAdded) }
 
     /** Returns an [[IO]] containing the description of a [[java.awt.Container#removeAll]]
      * method invocation.*/
-    def removeAll(): IO[Unit] =      IO { container.removeAll()  }
+    def removeAll(): IO[Unit] = IO { container.removeAll() }
 
     /** Returns an [[IO]] containing the description of a [[java.awt.Container#setLayout]]
      * method invocation.*/
-    def layoutSet(mgr : LayoutManager): IO[Unit] =      IO {    container.setLayout(mgr)  }
+    def layoutSet(mgr : LayoutManager): IO[Unit] = IO { container.setLayout(mgr) }
   }
 }
