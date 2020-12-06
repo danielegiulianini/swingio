@@ -21,5 +21,6 @@ object JComponentImplicits {
     /** Returns an [[IO]] containing the description of a [[JComponentImplicits#setBorder]]
      * method invocation on this JComponent.*/
     def borderSet(border: Border): IO[Unit] = IO {jComponent.setBorder(border)}
+
   }
 }
