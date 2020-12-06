@@ -23,7 +23,7 @@ object ExampleOfSimpleMVC extends App {
       input <- fromFuture(View.read())
       updatedModel <- modelUpdated(model, input)
       _ <- View.write(updatedModel)
-      _ <- if (model.state < FINAL_MODEL_STATE) loop(updatedModel) else IO { print("gameOver") }
+      _ <- if (model.state < FINAL_MODEL_STATE) loop(updatedModel) else View.displayGameOver
     } yield ()
   }
 
@@ -80,9 +80,9 @@ object ExampleOfSimpleMVC extends App {
         _ <- panel.add(input)
         _ <- button.addMonadicActionListener(for {
           _ <- button.setEnabled(false)
-          _ <- p.success(input.getValue)
           _ <- frame.getContentPane.removeAll
-          _ <- frame.revalidate
+          _ <- frame.repaint()
+          _ <- p.success(input.getValue)
         } yield ())
         _ <- panel.add(button)
       } yield ())
@@ -96,6 +96,12 @@ object ExampleOfSimpleMVC extends App {
         _ <- panel.add(output)
         _ <- frame.getContentPane.add(panel, BorderLayout.SOUTH)
       } yield ())
+    } yield ()
+
+    def displayGameOver(): IO[Unit] = for {
+      label <- new JLabel("game over.")
+      _ <- frame.getContentPane.add(label, BorderLayout.NORTH)
+      _ <- frame.revalidate()
     } yield ()
   }
 
