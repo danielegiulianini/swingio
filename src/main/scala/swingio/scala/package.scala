@@ -1,13 +1,10 @@
 package swingio
 
 import cats.effect.IO
-import javax.swing.JButton
-import swingio.scala.Listeners.MonadicActionListener
 
-package object scala {
+package object scala extends listeners.ListenersAliases with listeners.ListenersImplicits
+  with listeners.ComponentsWithListenersImplicits with concurrency.ConcurrencyImplicits
+  with concurrency.ConcurrencyUtilities {
+
   implicit def fromGenericTypeToIO[T](fa : => T) : IO[T] = IO{ fa }
-
-  implicit class JButtonIO (button : JButton){
-    def addMonadicActionListener(l : MonadicActionListener): Unit = button.addActionListener(l(_).unsafeRunSync())
-  }
 }

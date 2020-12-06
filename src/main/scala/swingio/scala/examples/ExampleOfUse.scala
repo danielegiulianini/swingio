@@ -4,11 +4,9 @@ import java.awt.BorderLayout
 
 import cats.effect.IO
 import javax.swing._
-import swingio.scala.ThreadingUtilities.Monadic.monadicInvokeAndWait
 
 object ExampleOfUse extends App {
 
-  import swingio.scala.Listeners._
   import swingio.scala._
 
   val frameBuilt = for {
