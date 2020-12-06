@@ -5,7 +5,7 @@ import javax.swing.JPanel
 import javax.swing.plaf.PanelUI
 
 object JPanelImplicits {
-  
+
   implicit class JPanelIO (jPanel: JPanel) {
 
     /** Returns an [[IO]] containing the description of a [[JPanel#setUI]]
