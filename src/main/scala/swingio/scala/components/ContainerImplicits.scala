@@ -4,7 +4,7 @@ import java.awt.{Component, Container, LayoutManager}
 
 import cats.effect.IO
 
-object ContainerImplicits {
+trait ContainerImplicits {
   implicit class ContainerIO(container: Container){
 
     /** Returns an [[IO]] containing the code for adding the [[ComponentImplicits]] to this container.

@@ -6,7 +6,7 @@ import cats.effect.IO
 import javax.swing.JFrame
 
 
-object JFrameImplicits {
+trait JFrameImplicits {
 
   implicit class JFrameIO(jFrame: JFrame) {
 

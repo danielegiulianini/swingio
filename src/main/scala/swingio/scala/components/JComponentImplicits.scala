@@ -6,7 +6,7 @@ import cats.effect.IO
 import javax.swing.JComponent
 import javax.swing.border.Border
 
-object JComponentImplicits {
+trait JComponentImplicits {
   implicit class JComponentIO(jComponent: JComponent) {
 
     /** Returns an [[IO]] containing the description of a [[JComponentImplicits#setMinimumSize]]

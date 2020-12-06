@@ -4,7 +4,7 @@ import cats.effect.IO
 import javax.swing.JPanel
 import javax.swing.plaf.PanelUI
 
-object JPanelImplicits {
+trait JPanelImplicits {
   
   implicit class JPanelIO (jPanel: JPanel) {
 

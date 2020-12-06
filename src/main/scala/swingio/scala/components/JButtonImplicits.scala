@@ -6,7 +6,7 @@ import cats.effect.IO
 import javax.swing.JButton
 
 
-object JButtonImplicits {
+trait JButtonImplicits {
 
   class JButtonIO(jButton: JButton){
 
