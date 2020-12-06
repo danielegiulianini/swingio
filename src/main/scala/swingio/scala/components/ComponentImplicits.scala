@@ -5,7 +5,8 @@ import java.awt.event.{ComponentListener, MouseListener}
 
 import cats.effect.IO
 
-trait ComponentImplicits {
+object ComponentImplicits {
+  
   implicit class ComponentIO(component: Component) {
     /** Returns an [[IO]] containing the description of a [[java.awt.Component#addMouseListener]]
      * method invocation.*/

@@ -3,7 +3,7 @@ package swingio.scala.components
 import cats.effect.IO
 import javax.swing.JLabel
 
-trait JLabelImplicits {
+object JLabelImplicits {
 
   implicit class JLabelIO(jLabel: JLabel) {
 

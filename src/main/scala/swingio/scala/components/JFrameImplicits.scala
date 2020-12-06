@@ -6,7 +6,7 @@ import cats.effect.IO
 import javax.swing.JFrame
 
 
-trait JFrameImplicits {
+object JFrameImplicits {
 
   implicit class JFrameIO(jFrame: JFrame) {
 
@@ -28,7 +28,7 @@ trait JFrameImplicits {
 
     /** Returns an [[IO]] containing the description of a [[JFrameImplicits#setSize]]
      * method invocation on this JFrame. */
-    def setSize(width: Int, height: Int): IO[Unit] = IO { jFrame.setSize(width, height) }
+    def setSize2(width: Int, height: Int): IO[Unit] = IO { jFrame.setSize(width, height) }
 
     /** Returns an [[IO]] containing the description of a [[JFrameImplicits#setLocationRelativeTo]]
      * method invocation on this JFrame. */
@@ -46,6 +46,10 @@ trait JFrameImplicits {
     def setExtendedState(): IO[Unit] = IO {
         jFrame.setExtendedState(jFrame.getExtendedState | Frame.MAXIMIZED_BOTH)
       }
+  }
+
+  object JFrameIO {
+    def apply() = IO{new JFrameIO(new JFrame)}
   }
 
 }
