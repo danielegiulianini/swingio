@@ -9,11 +9,11 @@ object JLabelImplicits {
 
     /** Returns an [[IO]] containing the description of a [[JLabel#setText]]
      * method invocation on this instance. */
-    def setText(text: String): IO[Unit] = IO {jLabel.setText(text)}
+    def textSet(text: String): IO[Unit] = IO {jLabel.setText(text)}
 
     /** Returns an [[IO]] containing the description of a [[JLabel#getText]]
      * method invocation on this instance. */
-    def getText: IO[String] = IO {jLabel.getText}
+    def textGot: IO[String] = IO {jLabel.getText}
   }
 
 }

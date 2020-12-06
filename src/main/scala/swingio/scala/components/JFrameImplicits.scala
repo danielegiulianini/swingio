@@ -48,8 +48,4 @@ object JFrameImplicits {
       }
   }
 
-  object JFrameIO {
-    def apply() = IO{new JFrameIO(new JFrame)}
-  }
-
 }
