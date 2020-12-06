@@ -32,5 +32,11 @@ object ComponentImplicits {
     /** Returns an [[IO]] containing the description of a [[java.awt.Component#setPreferredSize]]
      * method invocation on this instance. */
     def preferredSizeSet(d: Dimension): IO[Unit] = IO {component.setPreferredSize(d) }
+
+
+    def revalidated(): IO[Unit] = IO {component.revalidate()}
+
+
+    def repainted(): IO[Unit] = IO {component.repaint()}
   }
 }
