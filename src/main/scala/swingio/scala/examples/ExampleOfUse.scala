@@ -54,19 +54,4 @@ object ExampleOfUse extends App {
     case _ => println("gui-building ok.")
   }
 
-  /*val program = for {
-    jf <- new JFrame()
-    jp <- new JPanel
-    _ <- jf.add(jp)
-    _ <- jf.setSize(320, 300)
-    //_ <- SwingUtilities.invokeAndWait(for{      _ <- println("ciao")    } yield ())
-    b <- new JButton("cua")
-    _ <- b.addMonadicActionListener(for {
-      //_ <- e.getActionCommand
-      _ <- print("hello")
-    } yield())
-    _ <- jp.add(b)
-    _ <- jf.setVisible(true)
-  } yield ()*/
-
 }
