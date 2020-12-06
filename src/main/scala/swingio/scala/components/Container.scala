@@ -1,6 +1,6 @@
 package swingio.scala.components
 
-import java.awt.{Component, Container}
+import java.awt.{Component, Container, LayoutManager}
 
 import cats.effect.IO
 
@@ -25,6 +25,12 @@ object Container {
     def removed(componentToBeAdded: Component): IO[Unit] =
       IO { container.remove(componentToBeAdded)  }
 
-    
+    /** Returns an [[IO]] containing the description of a [[java.awt.Container#removeAll]]
+     * method invocation.*/
+    def removeAll(): IO[Unit] =      IO { container.removeAll()  }
+
+    /** Returns an [[IO]] containing the description of a [[java.awt.Container#setLayout]]
+     * method invocation.*/
+    def layoutSet(mgr : LayoutManager): IO[Unit] =      IO {    container.setLayout(mgr)  }
   }
 }
