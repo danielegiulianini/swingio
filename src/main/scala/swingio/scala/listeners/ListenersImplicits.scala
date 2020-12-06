@@ -9,7 +9,8 @@ trait ListenersImplicits {
   implicit def unitToMonadicActionListener(f: => IO[Unit]): MonadicActionListener = _ => f.unsafeRunSync()
 
   /** Implicit utility for converting a by-name (or unevaluated) parameter expression provided by => syntax to
-   * [[MonadicChangeListener]] for enabling a more concise syntax at call-side when describing listeners that ignores
+   * [[MonadicChangeListener]] for enabling a more concise syntax at call-side when describing
+   * [[javax.swing.event.ChangeListener]]s that ignores
    * the [[ChangeEvent]] triggering.*/
   implicit def unitToMonadicChangeListener(f: => IO[Unit]): MonadicChangeListener = _ => f
 
