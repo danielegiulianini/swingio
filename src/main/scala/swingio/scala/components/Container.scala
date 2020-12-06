@@ -7,8 +7,8 @@ import cats.effect.IO
 object Container {
   implicit class ContainerIO(container: Container){
 
-    /** Returns an [[IO]] containing the code for adding the [[Component]] wrapped in the given [[ComponentIO]] to
-     * the [[Container]] wrapped in this instance. It is the monadic counterpart of [[Container#added]].*/
+    /** Returns an [[IO]] containing the code for adding the [[Component]] to this container.
+     * It is the monadic counterpart of [[Container#added]].*/
     def add(componentToBeAdded: Component): IO[Component] = IO {container.add(componentToBeAdded)}
 
     /** Returns an [[IO]] containing the description of a [[java.awt.Container#add]]
@@ -20,16 +20,16 @@ object Container {
       IO {container.add(componentToBeAdded, constraints)}
 
     /** Returns an [[IO]] containing the description of a [[java.awt.Container#remove]]
-     * method invocation.*/
+     * method invocation on this container.*/
     def removed(componentToBeAdded: Component): IO[Unit] =
       IO { container.remove(componentToBeAdded) }
 
     /** Returns an [[IO]] containing the description of a [[java.awt.Container#removeAll]]
-     * method invocation.*/
+     * method invocation on this container.*/
     def removeAll(): IO[Unit] = IO { container.removeAll() }
 
     /** Returns an [[IO]] containing the description of a [[java.awt.Container#setLayout]]
-     * method invocation.*/
+     * method invocation on this container.*/
     def layoutSet(mgr : LayoutManager): IO[Unit] = IO { container.setLayout(mgr) }
   }
 }
