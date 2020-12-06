@@ -26,7 +26,7 @@ object ExampleOfUse extends App {
       _ <- panel.setLayout(new BorderLayout())
       _ <- panel.add(slider, BorderLayout.CENTER)
       _ <- panel.add(label, BorderLayout.NORTH)
-      //monadic listener:
+      //monadic listener description:
       _ <- button.addMonadicActionListener(for {
         currentValue <- slider.getValue
         _ <- if (currentValue > 0) label.setText("value: " + currentValue)
@@ -48,10 +48,4 @@ object ExampleOfUse extends App {
   } yield ()
 
   program unsafeRunSync
-
-  //example of execution with unsafeRunAsync (async, callback-based API)
-  program unsafeRunAsync {
-    case Left(_) => println("an exception was raised during gui-building.")
-    case _ => println("gui-building ok.")
-  }
 }
