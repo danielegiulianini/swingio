@@ -34,7 +34,7 @@ object ExampleOfUse extends App {
         else IO.unit
       } yield ())
       //procedural listener:
-      _ <- button.addActionListener(_ => System.out.println("button pressed"))
+      _ <- button.addActionListener(System.out.println("button pressed"))
       _ <- panel.add(slider, BorderLayout.CENTER)
       _ <- panel.add(label, BorderLayout.NORTH)
       _ <- panel.add(button, BorderLayout.SOUTH)
@@ -48,10 +48,11 @@ object ExampleOfUse extends App {
     _ <- frame.setVisible(true)
   } yield ()
 
+  program unsafeRunSync
+
   //example of execution with unsafeRunAsync (async, callback-based API)
   program unsafeRunAsync {
     case Left(_) => println("an exception was raised during gui-building.")
     case _ => println("gui-building ok.")
   }
-
 }
