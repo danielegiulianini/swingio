@@ -43,7 +43,7 @@ object JFrameImplicits {
     def setTitle(title: String): IO[Unit] = IO { jFrame.setTitle(title) }
 
     /** Returns an [[IO]] containing the code for maximizing the state of this JFrame. */
-    def setExtendedState(): IO[Unit] =       IO {
+    def setExtendedState(): IO[Unit] = IO {
         jFrame.setExtendedState(jFrame.getExtendedState | Frame.MAXIMIZED_BOTH)
       }
   }
