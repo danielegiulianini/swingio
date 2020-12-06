@@ -4,15 +4,15 @@ import java.awt.{Component, Container, LayoutManager}
 
 import cats.effect.IO
 
-object Container {
+object ContainerImplicits {
   implicit class ContainerIO(container: Container){
 
-    /** Returns an [[IO]] containing the code for adding the [[Component]] to this container.
-     * It is the monadic counterpart of [[Container#added]].*/
+    /** Returns an [[IO]] containing the code for adding the [[ComponentImplicits]] to this container.
+     * It is the monadic counterpart of [[ContainerImplicits#added]].*/
     def add(componentToBeAdded: Component): IO[Component] = IO {container.add(componentToBeAdded)}
 
     /** Returns an [[IO]] containing the description of a [[java.awt.Container#add]]
-     * method invocation. It is the monadic counterpart of [[Container#added]].
+     * method invocation. It is the monadic counterpart of [[ContainerImplicits#added]].
      * After adding the specified component at the end of this container, it also notifies
      * the layout manager to add the component to this container's layout using the
      * specified constraints object. */
