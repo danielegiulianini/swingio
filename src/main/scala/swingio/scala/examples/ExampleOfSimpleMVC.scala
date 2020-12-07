@@ -2,12 +2,13 @@ package swingio.scala.examples
 
 import java.awt.BorderLayout
 
-import cats.effect.Async.fromFuture
-import cats.effect.{ContextShift, IO}
-import javax.swing._
-import swingio.scala.examples.ExampleOfSimpleMVC.Model.{FINAL_MODEL_STATE, Model, modelUpdated}
+import javax.swing.{JButton, JFrame, JLabel, JPanel, JSlider, WindowConstants}
 
 import scala.concurrent.{ExecutionContext, Future, Promise}
+import cats.effect.Async.fromFuture
+import cats.effect.{ContextShift, IO}
+import swingio.scala.examples.ExampleOfSimpleMVC.Model.{FINAL_MODEL_STATE, Model, modelUpdated}
+
 
 object ExampleOfSimpleMVC extends App {
   implicit val contextShift: ContextShift[IO] = IO.contextShift(ExecutionContext.global)
@@ -41,6 +42,12 @@ object ExampleOfSimpleMVC extends App {
   object View {
 
     import swingio.scala._
+    import swingio.scala.components.JButtonImplicits.JButtonIO
+    import swingio.scala.components.ContainerImplicits.ContainerIO
+    import swingio.scala.components.JFrameImplicits.JFrameIO
+    import swingio.scala.components.ComponentImplicits.ComponentIO
+    import swingio.scala.components.JLabelImplicits.JLabelIO
+    import swingio.scala.components.JSliderImplicits.JSliderIO
 
     val frame = new JFrame("swing-io example")
 
@@ -49,17 +56,18 @@ object ExampleOfSimpleMVC extends App {
       panel <- new JPanel
       button <- new JButton("start")
       _ <- monadicInvokeAndWait(for {
-        _ <- frame.getContentPane.add(panel, BorderLayout.CENTER)
-        _ <- frame.setSize(320, 200)
-        _ <- frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
-        _ <- button.addMonadicActionListener(for {
-          _ <- button.setEnabled(false)
-          _ <- frame.getContentPane.removeAll()
-          _ <- frame.repaint()
+        cp <- frame.contentPane
+        _ <- cp.added(panel, BorderLayout.CENTER)
+        _ <- frame.sizeSet(320, 200)
+        _ <- frame.defaultCloseOperationSet(WindowConstants.EXIT_ON_CLOSE)
+        _ <- button.monadicActionListenerAdded(for {
+          _ <- button.enabledSet(false)
+          _ <- frame.getContentPane.allRemoved()
+          _ <- frame.repainted()
           _ <- p.success()
         } yield ())
-        _ <- panel.add(button)
-        _ <- frame.setVisible(true)
+        _ <- panel.added(button)
+        _ <- frame.visibleSet(true)
       } yield ())
     } yield p.future
 
@@ -67,8 +75,9 @@ object ExampleOfSimpleMVC extends App {
       p <- Promise[Int]()
       panel <- buildInputPanel(p)
       _ <- monadicInvokeAndWait(for {
-        _ <- frame.getContentPane.add(panel, BorderLayout.CENTER)
-        _ <- frame.revalidate()
+        cp <- frame.contentPane
+        _ <- cp.added(panel, BorderLayout.CENTER)
+        _ <- frame.revalidated()
       } yield ())
     } yield p.future
 
@@ -78,30 +87,35 @@ object ExampleOfSimpleMVC extends App {
       button <- new JButton("Hi, Update model with slider, please:")
       _ <- monadicInvokeAndWait(for {
         _ <- panel.add(input)
-        _ <- button.addMonadicActionListener(for {
-          _ <- button.setEnabled(false)
-          _ <- frame.getContentPane.removeAll
-          _ <- frame.repaint()
-          _ <- p.success(input.getValue)
+        _ <- button.monadicActionListenerAdded(for {
+          _ <- button.enabledSet(false)
+          _ <- frame.getContentPane.allRemoved
+          _ <- frame.repainted()
+          value <- input.valueGot
+          _ <- p.success(value)
         } yield ())
-        _ <- panel.add(button)
+        _ <- panel.added(button)
       } yield ())
     } yield panel
 
     def write(model: Model): IO[Unit] = for {
       panel <- new JPanel()
       output <- new JLabel("current model state: ")
-      _ <- monadicInvokeAndWait(for {
-        _ <- output.setText("" + model.state)
-        _ <- panel.add(output)
-        _ <- frame.getContentPane.add(panel, BorderLayout.SOUTH)
+      _ <- monadicInvokeAndWait(
+
+        for {
+        _ <- output.textSet("" + model.state)
+        _ <- panel.added(output)
+        cp <- frame.contentPane
+        _ <- cp.added(panel, BorderLayout.SOUTH)
       } yield ())
     } yield ()
 
     def displayGameOver(): IO[Unit] = for {
       label <- new JLabel("game over.")
-      _ <- frame.getContentPane.add(label, BorderLayout.NORTH)
-      _ <- frame.revalidate()
+      cp <- frame.contentPane
+      _ <- cp.added(label, BorderLayout.NORTH)
+      _ <- frame.revalidated()
     } yield ()
   }
 
