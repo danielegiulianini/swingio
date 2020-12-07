@@ -8,12 +8,10 @@ import swingio.scala.components.ContainerImplicits.ContainerIO
 import swingio.scala.components.JButtonImplicits.JButtonIO
 import swingio.scala.components.JLabelImplicits.JLabelIO
 import swingio.scala.components.JSliderImplicits.JSliderIO
+import swingio.scala._
+import swingio.scala.components.JFrameImplicits.JFrameIO
 
 object ExampleOfUse extends App {
-
-  import swingio.scala._
-  import swingio.scala.components.JFrameImplicits.JFrameIO
-  import swingio.scala.components.JPanelImplicits.JPanelIO
 
     val frameBuilt = for {
     frame <- new JFrame()
