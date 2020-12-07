@@ -5,6 +5,17 @@ import javax.swing.event.ChangeListener
 import javax.swing.JSlider
 import swingio.scala.MonadicChangeListener
 
+/** Contains implicit class that enriches [[JSlider]] with additional functionalities by leveraging what is
+ * referred to as "Pimp My Library Pattern".
+ * Use this imports:
+ * {{{
+ * import swingio.scala._
+ * import swingio.scala.components.JSliderImplicits._
+ * }}}
+ * to enable methods returning [[IO]] for combining methods invocation inside for-comprehension and
+ * providing a description of GUI-related logic.
+ *
+ * @see [[IO]] for details on IO monad and how to run it. */
 object JSliderImplicits {
 
   /** A class that provides a monadic description of the operations supplied by Swing's [[JSlider]] in the form
