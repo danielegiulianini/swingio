@@ -11,8 +11,12 @@ package object scala extends listeners.ListenersAliases with listeners.Listeners
    * composition inside a for-comprehension construct with the [[IO]] semantics, that is: sequential computation
    * blocks described by an IO and composed by flatmap and map results in sequential side-effect execution when run
    * by [[cats.effect.IO#unsafeRunSync]].
-   * This conversion allows to automatically convert any member of [[java.awt.Component]] to IO, actually
-   * getting it ready to be used in for-comprehension, and to reuse the constructors provided by the original
+   * This conversion allows to:
+   *
+   *  1. automatically convert any member of [[java.awt.Component]] to IO, actually
+   * getting it ready to be used in for-comprehension, and
+   *
+   *  1. to reuse the constructors provided by the original
    * library without need to manually rewrite each of them in order to put it results into IO for enabling
    * composition in the monadic chain.
    *
