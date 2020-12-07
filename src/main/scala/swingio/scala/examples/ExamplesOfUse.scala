@@ -13,7 +13,7 @@ import swingio.scala.components.JSliderImplicits._
 import swingio.scala.components.JFrameImplicits._
 
 /** Contains a simple example of use for building a Basic GUI with the classes contained in this library. */
-object SimpleExampleWithSwingMonadic extends App {
+object SimpleExampleWithSwingIo extends App {
   val frameBuilt = for {
     frame <- new JFrame()
     _ <- frame.titleSet("Basic GUI")
@@ -38,7 +38,7 @@ object SimpleExampleWithSwingMonadic extends App {
 }
 
 
-/** Contains the procedural/OO-equivalent code of [[SimpleExampleWithSwingMonadic]] leveraging traditional
+/** Contains the procedural/OO-equivalent code of [[SimpleExampleWithSwingio]] leveraging traditional
  * swing APIs. */
 object SimpleExampleWithTraditionalSwing extends App {
   def buildFrame = {
@@ -106,3 +106,43 @@ object ExampleWithMonadicVsProceduralListeners extends App {
   program unsafeRunSync
 }
 
+
+/** Contains a simple example of use of the classes of this library for building a frame with explicit use
+ * of layout managers in a thread-safe manner. */
+object ThreadSafeExampleWithLayoutWithSwingIo extends App {
+  val threadSafelyBuiltFrame = for {
+    frame <- new JFrame("Basic GUI with layouts")
+    _ <- monadicInvokeAndWait(for {
+      _ <- frame.sizeSet(320, 200)
+      _ <- frame.defaultCloseOperationSet(WindowConstants.EXIT_ON_CLOSE)
+    } yield ())
+  } yield frame
+
+  val threadSafelyBuiltPanel = for {
+    panel <- new JPanel()
+    _ <- monadicInvokeAndWait(
+      for {
+        _ <- panel.layoutSet(new BorderLayout ())
+        nb <- new JButton("North")
+        _ <- panel.added(nb, BorderLayout.NORTH)
+        wb <- new JButton("West")
+        _ <- panel.added(wb, BorderLayout.WEST)
+        eb <- new JButton("East")
+        _ <- panel.added(eb, BorderLayout.EAST)
+        sb <- new JButton("South")
+        _ <- panel.added(sb, BorderLayout.SOUTH)
+        cb <- new JButton("Center (close program)")
+        _ <- cb.actionListenerAdded(System.exit (0))
+        _ <- panel.added(cb, BorderLayout.CENTER)
+      } yield ())
+  } yield panel
+
+  val threadSafeProgram = for {
+    frame <- threadSafelyBuiltFrame
+    panel <- threadSafelyBuiltPanel
+    _ <- monadicInvokeAndWait(frame.added(panel))
+    _ <- monadicInvokeAndWait(frame.visibleSet(true))
+  } yield ()
+
+  threadSafeProgram unsafeRunSync
+}
