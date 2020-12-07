@@ -15,7 +15,7 @@ trait ConcurrencyUtilities {
    * Unlike [[monadicInvokeAndWait()]], upon calling "unsafeRunSync" on the IO returned, the control flow
    * will immediately return from the [[SwingUtilities#invokeLater]] call wrapped in the IO returned and
    * the GUI-related code will be executed after all pending AWT events have been processed.
-   * The actual execution of the [[IO]] return should not happen on the EDT thread without a proper
+   * The actual execution of the [[IO]] returned should not happen on the EDT thread without a proper
    * thread or context-shifting mechanism.
    *
    * @param byNameMonadicRunnable the [[IO]] containing the GUI-related logic to be executed.
