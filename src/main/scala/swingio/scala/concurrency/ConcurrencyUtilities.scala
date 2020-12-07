@@ -33,7 +33,7 @@ trait ConcurrencyUtilities {
    * [[SwingUtilities#invokeLater]] wrapped call will return.
    * If searching for an asynchronous execution of [[IO]]'s content, must use [[monadicInvokeLater]] instead.
    *
-   * @see TODO for examples of how to use it
+   * @see [[swingio.scala.examples.ThreadSafeExampleWithLayoutWithSwingIo]] for examples of how to use it
    *      inside a monadic chain.
    * @param byNameMonadicRunnable the [[IO]] containing the GUI-related logic to be executed.
    * @return an IO wrapping the [[SwingUtilities#invokeAndWait]] thread-safe call.
