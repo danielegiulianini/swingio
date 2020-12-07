@@ -38,7 +38,7 @@ object SimpleExampleWithSwingIo extends App {
 }
 
 
-/** Contains the procedural/OO-equivalent code of [[SimpleExampleWithSwingio]] leveraging traditional
+/** Contains the procedural/OO-equivalent code of [[SimpleExampleWithSwingIo]] leveraging traditional
  * swing APIs. */
 object SimpleExampleWithTraditionalSwing extends App {
   def buildFrame = {
@@ -62,7 +62,8 @@ object SimpleExampleWithTraditionalSwing extends App {
   frame.setVisible(true)
 }
 
-
+/** Contains a simple example of a GUI with a comparison of procedural vs monadic
+ * action listener specification. */
 object ExampleWithMonadicVsProceduralListeners extends App {
 
   val frameBuilt = for {
