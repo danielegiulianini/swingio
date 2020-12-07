@@ -8,10 +8,10 @@ trait ConcurrencyUtilities {
     def invokeAndWait(monadicRunnable: MonadicRunnable) =
       SwingUtilities.invokeAndWait(() => monadicRunnable.unsafeRunSync())*/
 
-  def monadicInvokeLater(byNameMonadicRunnable: =>IO[Unit]): Unit =
-    SwingUtilities.invokeLater(() => byNameMonadicRunnable.unsafeRunSync())
+  def monadicInvokeLater(byNameMonadicRunnable: =>IO[Unit]): IO[Unit] =
+    IO{ SwingUtilities.invokeLater(() => byNameMonadicRunnable.unsafeRunSync()) }
 
-  def monadicInvokeAndWait(byNameMonadicRunnable: =>IO[Unit]): Unit =
-    SwingUtilities.invokeAndWait(() => byNameMonadicRunnable.unsafeRunSync())
+  def monadicInvokeAndWait(byNameMonadicRunnable: =>IO[Unit]): IO[Unit] =
+    IO{ SwingUtilities.invokeAndWait(() => byNameMonadicRunnable.unsafeRunSync()) }
 
 }
