@@ -4,6 +4,17 @@ import java.awt.{Component, Container, LayoutManager}
 
 import cats.effect.IO
 
+/** Contains implicit class that enrichs [[Component]] with additional functionalities by leveraging what is
+ * referred to as "Pimp My Library Pattern".
+ * Use this import:
+ * {{{
+ * import swingio.scala._
+ * import swingio.scala.components.ContainerImplicits._
+ * }}}
+ * to enable methods returning [[IO]] for combining methods invocation inside for-comprehension and
+ * providing a description of GUI-related logic.
+ *
+ * @see [[IO]] for details on IO monad and how to run it. */
 object ContainerImplicits {
 
   implicit class ContainerIO(container: Container){

@@ -10,9 +10,9 @@ import cats.effect.IO
  * Use this import:
  * {{{
  * import swingio.scala._
- * import swingio.scala.components.ContainerImplicits._
+ * import swingio.scala.components.ComponentImplicits._
  * }}}
- * to enable methods returning [[IO]] for combining methods invocation inside for-comprenhension and
+ * to enable methods returning [[IO]] for combining methods invocation inside for-comprehension and
  * providing a description of GUI-related logic.
  *
  * @see [[IO]] for details on IO monad and how to run it. */
