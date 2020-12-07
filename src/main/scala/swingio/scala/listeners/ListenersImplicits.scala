@@ -1,9 +1,8 @@
 package swingio.scala.listeners
 
-import java.awt.event.{ActionListener}
+import java.awt.event.ActionListener
 
 import cats.effect.IO
-import javax.swing.SwingUtilities
 import javax.swing.event.ChangeEvent
 import swingio.scala._
 
@@ -13,7 +12,10 @@ trait ListenersImplicits {
 
   implicit def unitToActionListener[T](f: Unit) : ActionListener = _ => f
 
-  implicit def unitToMonadicActionListener(f: => IO[Unit]): MonadicActionListener = _ => f.unsafeRunSync()
+  /** Implicit utility for converting a by-name (or unevaluated) parameter expression provided by => syntax to
+   * [[MonadicActionListener]] for enabling a more concise syntax at call-side when describing listeners that ignores
+   * the [[java.awt.event.ActionEvent]] triggering.*/
+  implicit def unitToMonadicActionListener(f: => IO[Unit]): MonadicActionListener = _ => f
 
   /** Implicit utility for converting a by-name (or unevaluated) parameter expression provided by => syntax to
    * [[MonadicChangeListener]] for enabling a more concise syntax at call-side when describing
