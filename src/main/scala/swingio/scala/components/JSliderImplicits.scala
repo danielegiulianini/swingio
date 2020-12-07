@@ -3,6 +3,7 @@ package swingio.scala.components
 import cats.effect.IO
 import javax.swing.event.ChangeListener
 import javax.swing.JSlider
+import swingio.scala.MonadicChangeListener
 
 object JSliderImplicits {
 
@@ -48,7 +49,7 @@ object JSliderImplicits {
      * It accepts as parameter a procedural specification of the listener instead of a
      * monadic one.
      * @see [[swingio.scala.listeners.ListenersAliases.MonadicChangeListener]] and
-     *      [[swingio.scala.listeners.ComponentsWithListenersImplicits.JSliderIO#addMonadicChangeListener]]
+     *      [[swingio.scala.components.JSliderImplicits#addMonadicChangeListener]]
      *      for a monadic listener description.*/
     def changeListenerAdded(l: ChangeListener): IO[Unit] = IO {jSlider.addChangeListener(l)}
 
@@ -56,6 +57,9 @@ object JSliderImplicits {
      * this instance. */
     def changeListenerRemoved(l: ChangeListener): IO[Unit] = IO {jSlider.removeChangeListener(l)}
 
+    def monadicChangeListenerAdded(l: MonadicChangeListener): Unit = jSlider.addChangeListener(l(_).unsafeRunSync())
+
+    def monadicChangeListenerRemoved(l: MonadicChangeListener): Unit = jSlider.removeChangeListener(l(_).unsafeRunSync())
   }
 
 }

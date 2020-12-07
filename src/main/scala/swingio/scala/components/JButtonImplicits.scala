@@ -4,6 +4,7 @@ import java.awt.event.ActionListener
 
 import cats.effect.IO
 import javax.swing.JButton
+import swingio.scala.MonadicActionListener
 
 
 object JButtonImplicits {
@@ -33,6 +34,12 @@ object JButtonImplicits {
     /** Returns an [[IO]] containing the code for unregistering the given [[ActionListener]] from
      * this instance. */
     def actionListenerRemoved(l:ActionListener): IO[Unit] = IO {jButton.removeActionListener(l)}
+
+    def monadicActionListenerAdded(l : MonadicActionListener): IO[Unit] =
+      IO{jButton.addActionListener(l(_).unsafeRunSync())}
+
+    def monadicActionListenerRemoved(l: MonadicActionListener): IO[Unit] =
+      IO{jButton.removeActionListener(l(_).unsafeRunSync())}
 
   }
 }
