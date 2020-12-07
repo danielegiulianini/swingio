@@ -7,7 +7,7 @@ import javax.swing.{JButton, JFrame, JLabel, JPanel, JSlider, WindowConstants}
 import scala.concurrent.{ExecutionContext, Future, Promise}
 import cats.effect.Async.fromFuture
 import cats.effect.{ContextShift, IO}
-import swingio.scala.examples.ExampleOfSimpleMVC.Model.{FINAL_MODEL_STATE, Model, modelUpdated}
+import swingio.scala.examples.ExampleOfSimpleMVC.Model.{FINAL_MODEL_STATE, Model, updateModel}
 
 
 object ExampleOfSimpleMVC extends App {
@@ -22,7 +22,7 @@ object ExampleOfSimpleMVC extends App {
 
     def loop(model: Model): IO[Unit] = for {
       input <- fromFuture(View.read())
-      updatedModel <- modelUpdated(model, input)
+      updatedModel <- updateModel(model, input)
       _ <- View.write(updatedModel)
       _ <- if (model.state < FINAL_MODEL_STATE) loop(updatedModel) else View.displayGameOver
     } yield ()
@@ -34,7 +34,7 @@ object ExampleOfSimpleMVC extends App {
 
     case class Model(state: Int)
 
-    def modelUpdated(model: Model, input: Int): IO[Model] = IO {
+    def updateModel(model: Model, input: Int): IO[Model] = IO {
       Model(model.state + input)
     }
   }

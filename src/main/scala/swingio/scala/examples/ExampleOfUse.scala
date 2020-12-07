@@ -13,7 +13,7 @@ import swingio.scala.components.JFrameImplicits.JFrameIO
 
 object ExampleOfUse extends App {
 
-    val frameBuilt = for {
+  val frameBuilt = for {
     frame <- new JFrame()
     _ <- frame.titleSet("Basic GUI with listeners")
     _ <- frame.resizableSet(true)
