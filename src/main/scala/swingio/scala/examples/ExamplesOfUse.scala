@@ -22,7 +22,7 @@ object SimpleExampleWithSwingIo extends App {
 
   val panelBuilt = for {
     panel <- new JPanel()
-    cb <- new JButton("Close program.")
+    cb <- new JButton("Close program")
     _ <- cb.actionListenerAdded(System.exit(0))
     _ <- panel.added(cb)
   } yield panel
@@ -85,7 +85,7 @@ object ExampleWithMonadicVsProceduralListeners extends App {
       //monadic listener description:
       _ <- button.monadicActionListenerAdded(for {
         currentValue <- slider.valueGot
-        _ <- if (currentValue > 0) label.textSet("value: ".+(currentValue))
+        _ <- if (currentValue > 0) label.textSet("value: " + currentValue)
         else IO.unit
       } yield ())
       //procedural listener:
@@ -99,8 +99,8 @@ object ExampleWithMonadicVsProceduralListeners extends App {
   val program = for {
     frame <- frameBuilt
     panel <- panelBuilt
-    cp <- frame.contentPane
-    _ <- cp.added(panel)
+    contentPanel <- frame.contentPane
+    _ <- contentPanel.added(panel)
     _ <- frame.visibleSet(true)
   } yield ()
 
