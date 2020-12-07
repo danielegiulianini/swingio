@@ -4,7 +4,7 @@ import java.awt.{Component, Container, LayoutManager}
 
 import cats.effect.IO
 
-/** Contains implicit class that enrichs [[Component]] with additional functionalities by leveraging what is
+/** Contains implicit class that enriches [[Container]] with additional functionalities by leveraging what is
  * referred to as "Pimp My Library Pattern".
  * Use this import:
  * {{{

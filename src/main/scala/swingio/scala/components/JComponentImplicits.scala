@@ -6,6 +6,17 @@ import cats.effect.IO
 import javax.swing.JComponent
 import javax.swing.border.Border
 
+/** Contains implicit class that enriches [[JComponent]] with additional functionalities by leveraging what is
+ * referred to as "Pimp My Library Pattern".
+ * Use this imports:
+ * {{{
+ * import swingio.scala._
+ * import swingio.scala.components.JComponentImplicits._
+ * }}}
+ * to enable methods returning [[IO]] for combining methods invocation inside for-comprehension and
+ * providing a description of GUI-related logic.
+ *
+ * @see [[IO]] for details on IO monad and how to run it. */
 object JComponentImplicits {
 
   implicit class JComponentIO(jComponent: JComponent) {

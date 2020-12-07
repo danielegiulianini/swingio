@@ -5,9 +5,9 @@ import java.awt.event.{ComponentListener, MouseListener}
 
 import cats.effect.IO
 
-/** Contains implicit class that enrichs [[Component]] with additional functionalities by leveraging what is
+/** Contains implicit class that enriches [[Component]] with additional functionalities by leveraging what is
  * referred to as "Pimp My Library Pattern".
- * Use this import:
+ * Use this imports:
  * {{{
  * import swingio.scala._
  * import swingio.scala.components.ComponentImplicits._
