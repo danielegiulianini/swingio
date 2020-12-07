@@ -10,6 +10,9 @@ trait ListenersImplicits {
   /*def unitToTToUnitAsT2[T, T2](f: Unit)(implicit x: (T => Unit) => T2): T2 = x(_ => f)
   implicit def unitToActionListener[T](f: Unit) = unitToTToUnitAsT2[ActionEvent, ActionListener](f)*/
 
+  /** Implicit utility for converting a by-name (or unevaluated) parameter expression provided by => syntax to
+   * [[ActionListener]] for enabling a more concise syntax at call-side when describing listeners that ignores
+   * the [[java.awt.event.ActionEvent]] triggering.*/
   implicit def unitToActionListener[T](f: Unit) : ActionListener = _ => f
 
   /** Implicit utility for converting a by-name (or unevaluated) parameter expression provided by => syntax to
