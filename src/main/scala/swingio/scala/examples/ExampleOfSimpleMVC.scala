@@ -57,8 +57,8 @@ object ExampleOfSimpleMVC extends App {
       panel <- new JPanel
       button <- new JButton("start")
       _ <- monadicInvokeAndWait(for {
-        cp <- frame.contentPane
-        _ <- cp.added(panel, BorderLayout.CENTER)
+        contentPane <- frame.contentPane
+        _ <- contentPane.added(panel, BorderLayout.CENTER)
         _ <- frame.sizeSet(320, 200)
         _ <- frame.defaultCloseOperationSet(WindowConstants.EXIT_ON_CLOSE)
         _ <- button.monadicActionListenerAdded(for {

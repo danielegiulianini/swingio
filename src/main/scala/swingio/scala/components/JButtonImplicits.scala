@@ -42,12 +42,12 @@ object JButtonImplicits {
      *
      * @see [[actionListenerAdded]] for a procedural listener description.*/
     def monadicActionListenerAdded(l : MonadicActionListener): IO[Unit] =
-      IO{jButton.addActionListener(l(_).unsafeRunSync())}
+      IO {jButton.addActionListener(l(_).unsafeRunSync())}
 
     /** Returns an [[IO]] containing the code for unregistering the given [[MonadicActionListener]] from
      * this instance. */
     def monadicActionListenerRemoved(l: MonadicActionListener): IO[Unit] =
-      IO{jButton.removeActionListener(l(_).unsafeRunSync())}
+      IO {jButton.removeActionListener(l(_).unsafeRunSync())}
 
   }
 }

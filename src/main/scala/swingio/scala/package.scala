@@ -16,7 +16,7 @@ package object scala extends listeners.ListenersAliases with listeners.Listeners
    * library without need to manually rewrite each of them in order to put it results into IO for enabling
    * composition in the monadic chain.
    *
-   * @see [[swingio.scala.examples.ExampleOfUse]] for example of how to compose IOs, and
-   * [[IO]] for a detailed description of the IO data type.*/
+   * @see [[swingio.scala.examples]] for example of how to compose IOs, and
+   *      [[IO]] for a detailed description of the IO data type.*/
   implicit def fromGenericTypeToIO[T<:Component](fa : T) : IO[T] = IO{ fa }
 }
