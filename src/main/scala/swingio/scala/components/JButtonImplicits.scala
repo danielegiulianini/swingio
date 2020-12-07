@@ -29,7 +29,7 @@ object JButtonImplicits {
      * monadic one.
      * @see [[MonadicActionListener]] and [[monadicActionListenerAdded]] for a monadic
      *      listener description.*/
-    def actionListenerAdded(l: ActionListener): IO[Unit] = IO {jButton.addActionListener(l)}
+    def addActionListener(l: ActionListener): IO[Unit] = IO {jButton.addActionListener(l)}
 
     /** Returns an [[IO]] containing the code for unregistering the given [[ActionListener]] from
      * this instance. */

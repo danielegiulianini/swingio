@@ -48,7 +48,8 @@ object ExampleOfUse extends App {
   val program = for {
     frame <- frameBuilt
     panel <- panelBuilt
-    _ <- frame.contentPane.added(panel)
+    cp <- frame.contentPane
+    _ <- cp.added(panel)
     _ <- frame.visibleSet(true)
   } yield ()
 
