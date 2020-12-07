@@ -57,9 +57,11 @@ object JSliderImplicits {
      * this instance. */
     def changeListenerRemoved(l: ChangeListener): IO[Unit] = IO {jSlider.removeChangeListener(l)}
 
-    def monadicChangeListenerAdded(l: MonadicChangeListener): Unit = jSlider.addChangeListener(l(_).unsafeRunSync())
+    def monadicChangeListenerAdded(l: MonadicChangeListener): Unit =
+      IO {jSlider.addChangeListener(l(_).unsafeRunSync())}
 
-    def monadicChangeListenerRemoved(l: MonadicChangeListener): Unit = jSlider.removeChangeListener(l(_).unsafeRunSync())
+    def monadicChangeListenerRemoved(l: MonadicChangeListener): Unit =
+      IO {jSlider.removeChangeListener(l(_).unsafeRunSync())}
   }
 
 }
