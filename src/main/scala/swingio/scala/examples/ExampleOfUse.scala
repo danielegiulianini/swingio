@@ -4,17 +4,22 @@ import java.awt.BorderLayout
 
 import cats.effect.IO
 import javax.swing._
+import swingio.scala.components.ContainerImplicits.ContainerIO
+import swingio.scala.components.JButtonImplicits.JButtonIO
+import swingio.scala.components.JLabelImplicits.JLabelIO
+import swingio.scala.components.JSliderImplicits.JSliderIO
 
 object ExampleOfUse extends App {
 
   import swingio.scala._
+  import swingio.scala.components.JFrameImplicits.JFrameIO
+  import swingio.scala.components.JPanelImplicits.JPanelIO
 
-  val frameBuilt = for {
-    frame <- new JFrame
-    _ <- frame.setTitle("Basic GUI with listeners")
-    _ <- frame.setSize(400, 400)
-    _ <- frame.setResizable(true)
-    _ <- frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
+    val frameBuilt = for {
+    frame <- new JFrame()
+    _ <- frame.titleSet("Basic GUI with listeners")
+    _ <- frame.resizableSet(true)
+    _ <- frame.defaultCloseOperationSet(WindowConstants.EXIT_ON_CLOSE)
   } yield frame
 
   val panelBuilt = for {
@@ -23,28 +28,28 @@ object ExampleOfUse extends App {
     label <- new JLabel("value: ?")
     button <- new JButton("Click to display positive value.")
     _ <- monadicInvokeAndWait(for {
-      _ <- panel.setLayout(new BorderLayout())
-      _ <- panel.add(slider, BorderLayout.CENTER)
-      _ <- panel.add(label, BorderLayout.NORTH)
+      _ <- panel.layoutSet(new BorderLayout())
+      _ <- panel.added(slider, BorderLayout.CENTER)
+      _ <- panel.added(label, BorderLayout.NORTH)
       //monadic listener description:
-      _ <- button.addMonadicActionListener(for {
-        currentValue <- slider.getValue
-        _ <- if (currentValue > 0) label.setText("value: " + currentValue)
+      _ <- button.monadicActionListenerAdded(for {
+        currentValue <- slider.valueGot
+        _ <- if (currentValue > 0) label.textSet("value: ".+(currentValue))
         else IO.unit
       } yield ())
       //procedural listener:
-      _ <- button.addActionListener(System.out.println("button pressed"))
-      _ <- panel.add(slider, BorderLayout.CENTER)
-      _ <- panel.add(label, BorderLayout.NORTH)
-      _ <- panel.add(button, BorderLayout.SOUTH)
+      _ <- button.actionListenerAdded(System.out.println("button pressed"))
+      _ <- panel.added(slider, BorderLayout.CENTER)
+      _ <- panel.added(label, BorderLayout.NORTH)
+      _ <- panel.added(button, BorderLayout.SOUTH)
     } yield ())
   } yield panel
 
   val program = for {
     frame <- frameBuilt
     panel <- panelBuilt
-    _ <- frame.getContentPane.add(panel)
-    _ <- frame.setVisible(true)
+    _ <- frame.contentPane.added(panel)
+    _ <- frame.visibleSet(true)
   } yield ()
 
   program unsafeRunSync
