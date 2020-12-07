@@ -21,7 +21,7 @@ trait ConcurrencyUtilities {
    * @param byNameMonadicRunnable the [[IO]] containing the GUI-related logic to be executed.
    * @return an IO wrapping the [[SwingUtilities#invokeLater]] thread-safe call.
    */
-  def monadicInvokeLater(byNameMonadicRunnable: =>IO[Unit]): IO[Unit] =
+  def monadicInvokeLater(byNameMonadicRunnable: =>IO[_]): IO[Unit] =
     IO{ SwingUtilities.invokeLater(() => byNameMonadicRunnable.unsafeRunSync()) }
 
   /**
@@ -38,7 +38,7 @@ trait ConcurrencyUtilities {
    * @param byNameMonadicRunnable the [[IO]] containing the GUI-related logic to be executed.
    * @return an IO wrapping the [[SwingUtilities#invokeAndWait]] thread-safe call.
    */
-  def monadicInvokeAndWait(byNameMonadicRunnable: =>IO[Unit]): IO[Unit] =
+  def monadicInvokeAndWait(byNameMonadicRunnable: =>IO[_]): IO[Unit] =
     IO{ SwingUtilities.invokeAndWait(() => byNameMonadicRunnable.unsafeRunSync()) }
 
 }
