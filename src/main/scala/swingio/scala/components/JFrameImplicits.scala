@@ -24,7 +24,7 @@ object JFrameImplicits {
 
     /** Returns an [[IO]] containing the description of a [[JFrameImplicits#pack]]
      * method invocation on this JFrame. */
-    def pack(): IO[Unit] = IO { jFrame.pack() }
+    def packed(): IO[Unit] = IO { jFrame.pack() }
 
     /** Returns an [[IO]] containing the description of a [[JFrameImplicits#setSize]]
      * method invocation on this JFrame. */
