@@ -33,10 +33,12 @@ object ComponentImplicits {
      * method invocation on this instance. */
     def preferredSizeSet(d: Dimension): IO[Unit] = IO {component.setPreferredSize(d) }
 
-
+    /** Returns an [[IO]] containing the description of a [[java.awt.Component#revalidate]]
+     * method invocation on this instance. */
     def revalidated(): IO[Unit] = IO {component.revalidate()}
 
-
+    /** Returns an [[IO]] containing the description of a [[java.awt.Component#repaint]]
+     * method invocation on this instance. */
     def repainted(): IO[Unit] = IO {component.repaint()}
   }
 }

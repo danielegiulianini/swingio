@@ -24,7 +24,7 @@ object JSliderImplicits {
     def valueSet(value: Int): IO[Unit] = IO { jSlider.setValue(value) }
 
     /** Returns an [[IO]] containing the description of a [[JSlider#getValue]]
-     * method invocation on tthis instance. */
+     * method invocation on this instance. */
     def valueGot: IO[Int] = IO { jSlider.getValue }
 
     /** Returns an [[IO]] containing the description of a [[JSlider#setMajorTickSpacing]]

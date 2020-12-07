@@ -12,7 +12,7 @@ object JFrameImplicits {
 
     /** Returns an [[IO]] containing the description of a [[JFrameImplicits#getContentPane]]
      * method invocation on this JFrame. */
-    def contentPane(): IO[Container] = IO { jFrame.getContentPane() }
+    def contentPane(): IO[Container] = IO { jFrame.getContentPane }
 
     /** Returns an [[IO]] containing the description of a [[JFrameImplicits#setResizable]]
      * method invocation on this JFrame. */
