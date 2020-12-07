@@ -4,12 +4,13 @@ import java.awt.BorderLayout
 
 import cats.effect.IO
 import javax.swing._
-import swingio.scala.components.ContainerImplicits.ContainerIO
-import swingio.scala.components.JButtonImplicits.JButtonIO
-import swingio.scala.components.JLabelImplicits.JLabelIO
-import swingio.scala.components.JSliderImplicits.JSliderIO
+
 import swingio.scala._
-import swingio.scala.components.JFrameImplicits.JFrameIO
+import swingio.scala.components.ContainerImplicits._
+import swingio.scala.components.JButtonImplicits._
+import swingio.scala.components.JLabelImplicits._
+import swingio.scala.components.JSliderImplicits._
+import swingio.scala.components.JFrameImplicits._
 
 object ExampleOfUse extends App {
 

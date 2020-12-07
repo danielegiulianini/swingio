@@ -5,8 +5,7 @@ import java.awt.Component
 import cats.effect.IO
 
 package object scala extends listeners.ListenersAliases with listeners.ListenersImplicits
-  with listeners.ComponentsWithListenersImplicits with concurrency.ConcurrencyImplicits
-  with concurrency.ConcurrencyUtilities {
+  with concurrency.ConcurrencyImplicits with concurrency.ConcurrencyUtilities {
 
   /** Converts from a value of generic subtype of java.awt.Component to an IO containing that value, enabling use and
    * composition inside a for-comprehension construct with the [[IO]] semantics, that is: sequential computation

@@ -7,6 +7,7 @@ import javax.swing.{JButton, JFrame, JLabel, JPanel, JSlider, WindowConstants}
 import scala.concurrent.{ExecutionContext, Future, Promise}
 import cats.effect.Async.fromFuture
 import cats.effect.{ContextShift, IO}
+
 import swingio.scala.examples.ExampleOfSimpleMVC.Model.{FINAL_MODEL_STATE, Model, updateModel}
 
 
@@ -42,12 +43,12 @@ object ExampleOfSimpleMVC extends App {
   object View {
 
     import swingio.scala._
-    import swingio.scala.components.JButtonImplicits.JButtonIO
-    import swingio.scala.components.ContainerImplicits.ContainerIO
-    import swingio.scala.components.JFrameImplicits.JFrameIO
-    import swingio.scala.components.ComponentImplicits.ComponentIO
-    import swingio.scala.components.JLabelImplicits.JLabelIO
-    import swingio.scala.components.JSliderImplicits.JSliderIO
+    import swingio.scala.components.JButtonImplicits._
+    import swingio.scala.components.ContainerImplicits._
+    import swingio.scala.components.JFrameImplicits._
+    import swingio.scala.components.ComponentImplicits._
+    import swingio.scala.components.JLabelImplicits._
+    import swingio.scala.components.JSliderImplicits._
 
     val frame = new JFrame("swing-io example")
 
@@ -101,9 +102,7 @@ object ExampleOfSimpleMVC extends App {
     def write(model: Model): IO[Unit] = for {
       panel <- new JPanel()
       output <- new JLabel("current model state: ")
-      _ <- monadicInvokeAndWait(
-
-        for {
+      _ <- monadicInvokeAndWait(for {
         _ <- output.textSet("" + model.state)
         _ <- panel.added(output)
         cp <- frame.contentPane
