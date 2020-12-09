@@ -24,7 +24,7 @@ object ContainerImplicits {
     def added(componentToBeAdded: Component): IO[Component] = IO {container.add(componentToBeAdded)}
 
     /** Returns an [[IO]] containing the description of a [[java.awt.Container#add]]
-     * method invocation. It is the monadic counterpart of [[ContainerImplicits#added]].
+     * method invocation on this container. It is the monadic counterpart of [[ContainerImplicits#added]].
      * After adding the specified component at the end of this container, it also notifies
      * the layout manager to add the component to this container's layout using the
      * specified constraints object. */
